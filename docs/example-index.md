@@ -5,7 +5,7 @@
 | 編號 | 應用 | 正式程式 | 舊入口 | 章 | 技術 | 執行條件／效果 | 指南 |
 |---|---|---|---|---|---|---|---|
 | E01 | 開啟 Playwright 網站 | [open_page.py](../examples/01_basics/open_page.py) | `example.py` | 03 | 瀏覽器 | 不需登入 | 待補 |
-| E02 | 開啟部落格 | [open_blog.py](../examples/01_basics/open_blog.py) | `t1.py` | 03 | 瀏覽器 | 原有個人公開網址；等待手動關閉 | 待補 |
+| E02 | 開啟部落格 | [open_blog.py](../examples/01_basics/open_blog.py) | `t1.py` | 03 | 瀏覽器 | 需以 `--url` 或 `BLOGGER_PUBLIC_URL` 提供公開網址；等待手動關閉 | 待補 |
 | E03 | 開啟 Blogger 後台 | [open_blogger_admin.py](../examples/02_browser_sessions/open_blogger_admin.py) | `t2.py` | 08 | CDP | 已登入 Chrome；Windows／WSL 設定 | 待補 |
 | E04 | 開啟 Google Play 圖書後台 | [open_play_books.py](../examples/02_browser_sessions/open_play_books.py) | `a5.py` | 08 | CDP | 已登入 Chrome；Windows／WSL 設定 | 待補 |
 | E05 | AI Agent 分類完整書單 | [happyebook_ai_agent.py](../examples/03_data_queries/happyebook_ai_agent.py) | `happyebook_ai_agent.py` | 05、09 | 瀏覽器 | 讀取公開書單 | 待補 |
