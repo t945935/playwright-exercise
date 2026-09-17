@@ -1,0 +1,2 @@
+# 本專案整理時使用的 Python Playwright 版本
+playwright==1.63.0

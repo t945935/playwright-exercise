@@ -1,0 +1,31 @@
+name: 範例執行問題
+description: 安裝失敗、程式錯誤、網站改版或結果異常
+title: "[範例問題] "
+body:
+  - type: input
+    id: example
+    attributes:
+      label: 範例檔名或編號
+      placeholder: examples/04_tracking/happyebook_new_books.py（E12）
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 執行環境
+      description: 作業系統、Python 版本、Playwright 版本，以及查詢日期。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 執行指令與重現步驟
+      description: 請移除帳號、Cookie 與登入資訊。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 預期結果、實際結果與完整錯誤文字
+    validations:
+      required: true
