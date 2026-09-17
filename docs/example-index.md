@@ -23,6 +23,8 @@
 
 CDP 範例沿用既有已登入 Chrome；一般瀏覽器範例使用 Playwright Chromium。APIRequestContext 範例透過 Playwright 發送 HTTP 請求，不需要啟動 Chromium。既有 8 份指南已整理，其餘指南列為寫作待辦。
 
+完整的登入、外站與副作用狀態見[範例驗證矩陣](example-status.md)。
+
 ## 學習順序
 
 建議 E01 → E13 → E05 → E12，接著選擇新聞、交通、行情或活動主題；登入與發布案例最後學習。新書基準、活動狀態與股價資料庫位於 `outputs/`，搬移對照見 [目錄整理說明](directory-map.md)。

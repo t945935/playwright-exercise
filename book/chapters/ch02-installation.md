@@ -124,7 +124,7 @@ Windows PowerShell：
 .\.venv\Scripts\python.exe examples/01_basics/open_page.py
 ```
 
-預期會在終端機看到 Playwright 網站的標題，程式隨後結束。範例使用有畫面的瀏覽器；若你在沒有圖形介面的 Linux 伺服器上執行，請先把程式的 `launch()` 改成 `launch(headless=True)`，或使用本章後面的檢查指令。
+預期會在終端機看到 Playwright 網站的標題，程式隨後結束。範例使用 Playwright 的預設無畫面模式；若要觀察瀏覽器視窗，請把 `launch()` 改成 `launch(headless=False)`。沒有圖形介面的 Linux 伺服器則維持預設設定即可。
 
 接著只讀取命令列說明，不會連線或修改外部網站：
 
@@ -133,6 +133,14 @@ Windows PowerShell：
 ```
 
 如果兩個命令都成功，基礎環境已經完成。各範例的輸出會在執行時建立於 `outputs/`；第一次執行新書雷達時會建立你自己的基準資料。
+
+本專案也提供不連線外部網站的 Python 核心測試。安裝完成後可執行：
+
+```bash
+.venv/bin/python -m unittest discover -s tests/python -p 'test_*.py'
+```
+
+看到 `OK` 即表示日期、去重與價格比較等基礎邏輯通過；瀏覽器和登入案例仍須依各章的實際條件個別驗證。
 
 ## 2.6　用一個檢查表找出問題
 

@@ -10,8 +10,12 @@ RSS 通常包含標題、連結、來源、發布時間和摘要。E06 會向中
 with sync_playwright() as p:
     request = p.request.new_context(extra_http_headers={"User-Agent": "playwright-exercise"})
     response = request.get(feed_url, timeout=30_000)
-    response.raise_for_status()
-    xml = response.text()
+    try:
+        if not response.ok:
+            raise RuntimeError(f"HTTP {response.status}")
+        xml = response.body()
+    finally:
+        response.dispose()
 ```
 
 請求完成後呼叫 `request.dispose()`。不把 HTTP 請求誤寫成瀏覽器點擊，可以讓程式更快，也能清楚看出資料來源。

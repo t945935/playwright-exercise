@@ -4,7 +4,7 @@
 
 本書的 Python 範例、操作指南與問題回報入口。**目前收錄 16 個應用，分成 6 類；前言、第 1–18 章與五個附錄均已完成初稿。**
 
-[範例索引](docs/example-index.md) · [閱讀目錄](book/toc.md) · [前言](book/chapters/preface.md) · [第 1 章初稿](book/chapters/ch01-introduction.md) · [第 2 章初稿](book/chapters/ch02-installation.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
+[範例索引](docs/example-index.md) · [閱讀目錄](book/toc.md) · [術語表](book/glossary.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
 
 ## 下載範例
 
@@ -39,6 +39,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python -m playwright install chromium
 .venv/bin/python examples/01_basics/open_page.py
+.venv/bin/python -m unittest discover -s tests/python -p 'test_*.py'
 ```
 
 不需要啟用虛擬環境；以上命令直接使用環境內的 Python。第一次成功會在終端機印出 Playwright 網站標題。
@@ -71,7 +72,7 @@ python3 -m venv .venv
 | [05_visuals](examples/05_visuals/) | 1 | 多尺寸網頁截圖 |
 | [06_publishing](examples/06_publishing/) | 3 | 發布文章、建立與填寫電子書資料 |
 
-根目錄 `.py` 為舊檔名相容入口，不重複計數。完整命令、參數及執行效果見 [範例索引](docs/example-index.md)。登入與出版案例需先閱讀 [讀者帳號設定](docs/guides/reader-accounts.md)。
+根目錄 `.py` 為舊檔名相容入口，不重複計數。完整命令、參數及執行效果見 [範例索引](docs/example-index.md)。登入與出版案例需先閱讀 [讀者帳號設定](docs/guides/reader-accounts.md)，並先執行 `--dry-run` 或 `--validate-only`。
 
 ## 回報問題與勘誤
 

@@ -1,4 +1,5 @@
-"""執行後會在 Blogger 發布一篇「新文章測試3」，沿用已登入的 Chrome。"""
+"""在 Blogger 建立測試文章；預設會發布，--dry-run 只顯示計畫。"""
+import argparse
 import os
 from pathlib import Path
 import re
@@ -9,8 +10,8 @@ EMAIL = os.environ.get("BLOGGER_EMAIL", "")
 BLOG_URL = os.environ.get("BLOGGER_PUBLIC_URL", "")
 BLOG_ID = os.environ.get("BLOGGER_BLOG_ID", "")
 ADMIN_URL = f"https://www.blogger.com/blog/posts/{BLOG_ID}?hl=zh-TW"
-POST_TITLE = "新文章測試3"
-POST_CONTENT = "新文章測試3"
+POST_TITLE = os.environ.get("BLOGGER_POST_TITLE", "Playwright 測試文章")
+POST_CONTENT = os.environ.get("BLOGGER_POST_CONTENT", "這是一篇 Playwright 測試文章。")
 
 
 def run_on_windows():
@@ -24,13 +25,12 @@ def run_on_windows():
     ).strip()
     quoted_script = "'" + script.replace("'", "''") + "'"
     forwarded = ""
-    for key in ("BLOGGER_EMAIL", "BLOGGER_BLOG_ID", "BLOGGER_PUBLIC_URL", "BLOGGER_CDP_URL"):
+    for key in ("BLOGGER_EMAIL", "BLOGGER_BLOG_ID", "BLOGGER_PUBLIC_URL", "BLOGGER_POST_TITLE", "BLOGGER_POST_CONTENT", "BLOGGER_CDP_URL"):
         if os.environ.get(key):
             value = os.environ[key].replace("'", "''")
             forwarded += f"$env:{key} = '{value}'; "
     command = (
-        forwarded +
-        "$env:PYTHONIOENCODING = 'utf-8'; "
+        forwarded + "$env:PYTHONIOENCODING = 'utf-8'; "
         f"& python.exe {quoted_script}; exit $LASTEXITCODE"
     )
     result = subprocess.run(["powershell.exe", "-NoProfile", "-Command", command])
@@ -40,8 +40,17 @@ def run_on_windows():
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-run", action="store_true", help="只顯示文章資料與目標，不連線或發布")
+    args = parser.parse_args()
+    if args.dry_run:
+        print(f"目標網誌：{BLOG_ID or '(未設定 BLOGGER_BLOG_ID)'}")
+        print(f"文章標題：{POST_TITLE}")
+        print(f"文章內容：{POST_CONTENT}")
+        print("dry-run：未連線 Chrome、未建立文章、未發布。")
+        return
     if not EMAIL or not BLOG_ID.isdigit() or not BLOG_URL.startswith("https://"):
-        raise ValueError("請先設定 BLOGGER_EMAIL、BLOGGER_BLOG_ID 與 BLOGGER_PUBLIC_URL；詳見 docs/guides/reader-accounts.md。")
+        raise ValueError("請先設定 BLOGGER_EMAIL、BLOGGER_BLOG_ID 與 BLOGGER_PUBLIC_URL；或先使用 --dry-run。")
     # Windows Chrome 與 WSL 各有自己的 localhost，改由 Windows Python 連線。
     if run_on_windows():
         return

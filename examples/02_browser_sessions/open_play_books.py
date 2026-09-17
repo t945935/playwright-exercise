@@ -1,7 +1,7 @@
 """沿用已登入的 Windows Chrome，開啟 Google Play 圖書出版中心。"""
 import os
-import re
 from pathlib import Path
+import re
 from urllib.parse import urlparse
 import subprocess
 import sys
@@ -19,11 +19,10 @@ def run_on_windows():
         ["wslpath", "-w", str(Path(__file__).resolve())], text=True
     ).strip()
     quoted_script = "'" + script.replace("'", "''") + "'"
-    publisher = TARGET_URL.replace("'", "''")
-    endpoint_setting = f"$env:PLAY_BOOKS_PUBLISHER_URL = '{publisher}'; "
+    endpoint_setting = ""
     if os.environ.get("CHROME_CDP_URL"):
         endpoint = os.environ["CHROME_CDP_URL"].replace("'", "''")
-        endpoint_setting += f"$env:CHROME_CDP_URL = '{endpoint}'; "
+        endpoint_setting = f"$env:CHROME_CDP_URL = '{endpoint}'; "
     command = (
         endpoint_setting + "$env:PYTHONIOENCODING = 'utf-8'; "
         f"& python.exe {quoted_script}; exit $LASTEXITCODE"

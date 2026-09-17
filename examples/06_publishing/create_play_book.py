@@ -1,4 +1,5 @@
-"""新增書籍，選取販售電子書及 Google 書籍 ID，然後儲存並繼續。"""
+"""新增書籍；預設會儲存，--dry-run 只顯示計畫。"""
+import argparse
 import os
 import re
 from pathlib import Path
@@ -19,11 +20,11 @@ def run_on_windows():
         ["wslpath", "-w", str(Path(__file__).resolve())], text=True
     ).strip()
     quoted_script = "'" + script.replace("'", "''") + "'"
-    publisher = TARGET_URL.replace("'", "''")
-    endpoint_setting = f"$env:PLAY_BOOKS_PUBLISHER_URL = '{publisher}'; "
-    if os.environ.get("CHROME_CDP_URL"):
-        endpoint = os.environ["CHROME_CDP_URL"].replace("'", "''")
-        endpoint_setting += f"$env:CHROME_CDP_URL = '{endpoint}'; "
+    endpoint_setting = ""
+    for key in ("PLAY_BOOKS_PUBLISHER_URL", "CHROME_CDP_URL"):
+        if os.environ.get(key):
+            value = os.environ[key].replace("'", "''")
+            endpoint_setting += f"$env:{key} = '{value}'; "
     command = (
         endpoint_setting + "$env:PYTHONIOENCODING = 'utf-8'; "
         f"& python.exe {quoted_script}; exit $LASTEXITCODE"
@@ -65,8 +66,16 @@ def select_google_book_id(page):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-run", action="store_true", help="只顯示目標與操作步驟，不連線或儲存")
+    args = parser.parse_args()
+    if args.dry_run:
+        print(f"出版中心：{TARGET_URL or '(未設定 PLAY_BOOKS_PUBLISHER_URL)'}")
+        print("操作計畫：開啟書籍目錄 → 新增書籍 → 選取電子書與 Google 書籍 ID → 儲存並繼續")
+        print("dry-run：未連線 Chrome、未建立或修改書籍。")
+        return
     if not re.fullmatch(r"https://play\.google\.com/books/publish/a/[0-9]+#home", TARGET_URL):
-        raise ValueError("請先設定 PLAY_BOOKS_PUBLISHER_URL；詳見 docs/guides/reader-accounts.md。")
+        raise ValueError("請先設定 PLAY_BOOKS_PUBLISHER_URL；或先使用 --dry-run。")
     # Windows Chrome 與 WSL 各有自己的 localhost，改由 Windows Python 連線。
     if run_on_windows():
         return

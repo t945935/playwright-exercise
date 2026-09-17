@@ -47,20 +47,24 @@ Get-ChildItem examples/01_basics
 
 ```python
 import re
-from playwright.sync_api import expect
+from playwright.sync_api import sync_playwright, expect
 
-page.goto("https://playwright.dev")
-expect(page).to_have_title(re.compile("Playwright"))
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://playwright.dev")
+    expect(page).to_have_title(re.compile("Playwright"))
+    browser.close()
 ```
 
 斷言失敗時，錯誤訊息會告訴你實際頁面和等待時間。這比只印出 `None` 或空清單更容易追查。正式應用也應在輸出前檢查資料完整性，例如書卡數量是否等於網站顯示的總數。
 
 ## 3.4　有畫面與無畫面模式
 
-`launch()` 預設顯示瀏覽器。伺服器或排程通常使用無畫面模式：
+`launch()` 預設使用無畫面模式。伺服器或排程可以維持這個設定；除錯時若要看到視窗，請明確指定 `headless=False`：
 
 ```python
-browser = p.chromium.launch(headless=True)
+browser = p.chromium.launch(headless=False)
 ```
 
 除錯時先用有畫面模式觀察導覽、彈窗和滾動位置；流程穩定後才切換 headless。無畫面不代表不會載入內容，它只是沒有可見視窗。若程式在 headless 成功、有畫面失敗，通常要檢查視窗大小、彈窗或環境依賴，而不是立即加長等待時間。

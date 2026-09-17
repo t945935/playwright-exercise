@@ -13,7 +13,11 @@ $env:BLOGGER_PUBLIC_URL = 'https://你的網誌.blogspot.com/'
 .\.venv\Scripts\python.exe examples/02_browser_sessions/open_blogger_admin.py
 ```
 
-網誌 ID 是 Blogger 後台 `/blog/posts/` 後面的數字；公開網址不是後台網址。`publish_blogger_post.py` 會建立並發布測試文章，請先檢查程式中的標題、正文和目標網誌。
+網誌 ID 是 Blogger 後台 `/blog/posts/` 後面的數字；公開網址不是後台網址。`publish_blogger_post.py` 預設會建立並發布測試文章；請先以 `--dry-run` 確認，不會連線或建立文章：
+
+```bash
+.venv/bin/python examples/06_publishing/publish_blogger_post.py --dry-run
+```
 
 ## Google Play 圖書
 
@@ -22,10 +26,16 @@ $env:PLAY_BOOKS_PUBLISHER_URL = 'https://play.google.com/books/publish/a/你的�
 .\.venv\Scripts\python.exe examples/02_browser_sessions/open_play_books.py
 ```
 
-`create_play_book.py` 會新增書籍並儲存；`fill_play_book.py` 一般模式會新增或選取草稿並填寫資料。先用 `--validate-only` 檢查 metadata JSON，不連接後台：
+`create_play_book.py` 預設會新增書籍並儲存；先用 `--dry-run` 確認目標。`fill_play_book.py` 一般模式會新增或選取草稿並填寫資料；先用 `--validate-only` 或 `--dry-run` 檢查 metadata JSON，不連接後台：
 
 ```powershell
 .\.venv\Scripts\python.exe examples/06_publishing/fill_play_book.py --metadata book-metadata.json --validate-only
+```
+
+預覽建立書籍：
+
+```bash
+.venv/bin/python examples/06_publishing/create_play_book.py --dry-run
 ```
 
 ## Chrome 與 WSL

@@ -42,11 +42,11 @@ def run_on_windows(args):
     arguments = " --metadata '" + metadata_path.replace("'", "''") + "'"
     if args.book_url:
         arguments += " --book-url '" + args.book_url.replace("'", "''") + "'"
-    publisher = TARGET_URL.replace("'", "''")
-    endpoint_setting = f"$env:PLAY_BOOKS_PUBLISHER_URL = '{publisher}'; "
-    if os.environ.get("CHROME_CDP_URL"):
-        endpoint = os.environ["CHROME_CDP_URL"].replace("'", "''")
-        endpoint_setting += f"$env:CHROME_CDP_URL = '{endpoint}'; "
+    endpoint_setting = ""
+    for key in ("PLAY_BOOKS_PUBLISHER_URL", "CHROME_CDP_URL"):
+        if os.environ.get(key):
+            value = os.environ[key].replace("'", "''")
+            endpoint_setting += f"$env:{key} = '{value}'; "
     command = (
         endpoint_setting + "$env:PYTHONIOENCODING = 'utf-8'; "
         f"& python.exe {quoted_script}{arguments}; exit $LASTEXITCODE"
@@ -138,19 +138,24 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--metadata", required=True, help="AI 整理的 UTF-8 JSON 檔案")
     parser.add_argument("--validate-only", action="store_true", help="只檢查資料，不連接瀏覽器")
+    parser.add_argument("--dry-run", action="store_true", help="檢查資料並顯示目標，不連接或修改後台")
     parser.add_argument("--book-url", help="接續已建立的書籍資訊網址，避免重複建立書籍")
     args = parser.parse_args()
     metadata = load_metadata(args.metadata)
-    if not args.validate_only and not re.fullmatch(r"https://play\.google\.com/books/publish/a/[0-9]+#home", TARGET_URL):
-        raise ValueError("請先設定 PLAY_BOOKS_PUBLISHER_URL；詳見 docs/guides/reader-accounts.md。")
     if args.book_url and not re.fullmatch(
-        re.escape(TARGET_URL.split("#")[0]) + r"#book/(?!create(?:/|$))[^/?#]+/info/about", args.book_url
+        r"https://play\.google\.com/books/publish/a/[0-9]+#book/(?!create(?:/|$))[^/?#]+/info/about", args.book_url
     ):
         raise ValueError("--book-url 必須是此出版帳戶的書籍 /info/about 頁面。")
-    if args.validate_only:
+    if args.validate_only or args.dry_run:
         print(json.dumps(metadata, ensure_ascii=False, indent=2))
-        print("資料檢查通過；未連接瀏覽器。")
+        if args.dry_run:
+            print(f"目標：{args.book_url or TARGET_URL or '(未設定 PLAY_BOOKS_PUBLISHER_URL)'}")
+            print("dry-run：資料檢查通過；未連接瀏覽器、未建立或修改書籍。")
+        else:
+            print("資料檢查通過；未連接瀏覽器。")
         return
+    if not re.fullmatch(r"https://play\.google\.com/books/publish/a/[0-9]+#home", TARGET_URL):
+        raise ValueError("請先設定 PLAY_BOOKS_PUBLISHER_URL；或先使用 --dry-run。")
     # Windows Chrome 與 WSL 各有自己的 localhost，改由 Windows Python 連線。
     if run_on_windows(args):
         return

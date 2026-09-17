@@ -42,9 +42,12 @@ expect(page.locator(".result-table")).to_be_visible()
 ```python
 if page.get_by_text("請選擇出發站").is_visible():
     raise ValueError("表單尚未完成")
-if await_table_rows() == 0:
+rows = page.locator(".result-table tbody tr")
+if rows.count() == 0:
     return {"status": "ok", "trains": []}
 ```
+
+`rows.count()` 是同步 API 的實際寫法；若網站使用分頁，應先切換或展開所有結果，再計算列數。選擇器需依該網站實際 HTML 調整。
 
 報告中保留 `status`，讀者才知道程式真的查過，只是沒有符合條件的結果。交通與行情範例都遵守這個區分。
 
