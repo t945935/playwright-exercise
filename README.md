@@ -78,4 +78,4 @@ python3 -m venv .venv
 
 到 [Issues](https://github.com/t945935/playwright-exercise/issues/new/choose) 選擇「範例執行問題」或「書籍勘誤」。請附範例檔名、執行指令、作業系統、Python／Playwright 版本及錯誤文字；移除帳號、Cookie 與其他登入資訊。
 
-真實網站可能改版，行情與交通資料也會隨查詢時間改變。請保留實際查詢日期，方便重現問題。此專案尚未提供固定書籍版本的 Release；更新進度見 [CHANGELOG](CHANGELOG.md)。
+真實網站可能改版，行情與交通資料也會隨查詢時間改變。請保留實際查詢日期，方便重現問題。初版固定標籤為 [`v0.1.0-alpha`](https://github.com/t945935/playwright-exercise/releases/tag/v0.1.0-alpha)；更新進度見 [CHANGELOG](CHANGELOG.md)。
