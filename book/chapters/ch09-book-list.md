@@ -2,6 +2,14 @@
 
 本章把定位器、等待和 JSON 組合成第一個完整資料擷取案例。目標不是只印出目前看到的幾張書卡，而是確認 AI Agent 分類的完整列表，再保存書名、副標題和連結。
 
+## 本章目標
+
+完成後，你能取得 Happy eBook 的完整 AI Agent 書單，並驗證每筆都有可用網址。
+
+## 執行前準備
+
+需要第 2 章的 Chromium；本章只讀取公開頁面，不需要登入。網站筆數會隨時間變動。
+
 ## 9.1　把人工流程寫成規格
 
 人工步驟是：開啟 Happy eBook 首頁、點「書籍列表」、選 AI Agent、按「顯示更多書籍」直到全部出現，逐張讀取資訊。程式的完成條件是卡片數等於網站顯示總數，且每筆都有標題和有效的詳細頁網址。
@@ -33,7 +41,16 @@ AI Agent 分類共 28 筆書目：
 E05 先讀取 `[data-books-count]` 摘要，從文字解析「目前顯示／總數」。每次點擊後等待原本未附加的下一張卡片，再重新讀取摘要。它不假設總數永遠是 28，因為網站可能增加或移除書籍。
 
 ```python
-shown, total = map(int, re.search(r"(\d+)\s*/\s*(\d+)", summary.inner_text()).groups())
+import re
+from playwright.sync_api import expect
+
+def read_count(text: str) -> tuple[int, int]:
+    match = re.search(r"顯示\s*(\d+)\s*/\s*(\d+)\s*本", text)
+    if not match:
+        raise ValueError(f"無法解析書籍數量：{text}")
+    return tuple(map(int, match.groups()))
+
+shown, total = read_count(summary.inner_text())
 while shown < total:
     more.click()
     expect(cards.nth(shown)).to_be_attached()

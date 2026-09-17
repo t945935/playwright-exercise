@@ -2,6 +2,10 @@
 
 本章完成後，你會有一個獨立的 Python 環境，能用 Playwright 啟動 Chromium，並執行本書的第一個範例。安裝時最容易混淆的是「Python 套件」和「瀏覽器執行檔」：前者讓程式可以呼叫 Playwright，後者才是真正被控制的瀏覽器。兩者都準備好，程式才能順利執行。
 
+## 本章目標
+
+建立虛擬環境、安裝 Playwright 與 Chromium，並以 E01 和離線測試確認環境可用。
+
 本書以 Python 3.10 以上為前提，範例整理時使用 Python 3.12.3 與 Playwright 1.63.0。Playwright 官方目前的 Python 文件也把 Windows、macOS、Linux 和 WSL 列為支援環境；實際可用版本仍會受作業系統和瀏覽器更新影響，請以 [官方安裝文件](https://playwright.dev/python/docs/intro) 為準。
 
 ## 2.1　先確認作業系統與 Python

@@ -18,6 +18,8 @@ sys.path.extend([
 ])
 
 import ai_news_today  # noqa: E402
+import happyebook_new_books  # noqa: E402
+import stock_open_gainers  # noqa: E402
 import tsmc_price_tracker  # noqa: E402
 
 
@@ -65,6 +67,24 @@ class TsmcTrackerTests(unittest.TestCase):
         }]}
         with self.assertRaises(ValueError):
             tsmc_price_tracker.parse_quote(data, now)
+
+
+class ApplicationFixtureTests(unittest.TestCase):
+    def test_book_radar_finds_one_new_url(self):
+        before = [{"title": "甲", "url": "https://happyebook.com/books/a.html"}]
+        after = before + [{"title": "乙", "url": "https://happyebook.com/books/b.html"}]
+        added, missing = happyebook_new_books.compare_books(before, after)
+        self.assertEqual([book["title"] for book in added], ["乙"])
+        self.assertEqual(missing, [])
+
+    def test_stock_fixture_is_ranked_before_rounding(self):
+        today = "20260917"
+        records = [stock_open_gainers.opening_record({
+            "c": code, "n": name, "ex": "tse", "d": today,
+            "o": str(opening), "y": "100", "v": "1", "t": "09:00:01",
+        }, today)[0] for code, name, opening in [("1001", "甲", 110), ("1002", "乙", 105), ("1003", "丙", 95)]]
+        ranked = stock_open_gainers.rank_records(records, 2)
+        self.assertEqual([row["code"] for row in ranked], ["1001", "1002"])
 
 
 if __name__ == "__main__":

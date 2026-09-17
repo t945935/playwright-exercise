@@ -2,6 +2,14 @@
 
 查詢車次的工作流程很適合學習表單：選日期、選出發站、選抵達站、設定時間，再按查詢。每個動作都可能觸發頁面更新，因此要同時處理輸入方式和等待條件。
 
+## 本章目標
+
+完成後，你能填寫表單、等待結果，並分辨表單錯誤、查無資料和成功查詢。
+
+## 執行前準備
+
+需要第 2 章的環境；臺鐵與高鐵命令會連線官方網站，固定資料練習請先使用第 12、13 章的輸出檔。
+
 ## 6.1　輸入與選擇
 
 文字輸入使用 `fill()`，它會先清除原值再填入；按鈕使用 `click()`；原生 `<select>` 使用 `select_option()`：
@@ -40,11 +48,16 @@ expect(page.locator(".result-table")).to_be_visible()
 查詢成功但時段沒有班次，與表單驗證失敗不同。先檢查 HTTP 和頁面錯誤，再判斷結果列數：
 
 ```python
-if page.get_by_text("請選擇出發站").is_visible():
-    raise ValueError("表單尚未完成")
-rows = page.locator(".result-table tbody tr")
-if rows.count() == 0:
-    return {"status": "ok", "trains": []}
+from playwright.sync_api import expect
+
+def classify_result(page):
+    """回傳表單查詢的狀態；這是一個可嵌入既有流程的片段。"""
+    if page.get_by_text("請選擇出發站").is_visible():
+        raise ValueError("表單尚未完成")
+    rows = page.locator(".result-table tbody tr")
+    if rows.count() == 0:
+        return {"status": "ok", "trains": []}
+    return {"status": "ok", "trains": rows.all_inner_texts()}
 ```
 
 `rows.count()` 是同步 API 的實際寫法；若網站使用分頁，應先切換或展開所有結果，再計算列數。選擇器需依該網站實際 HTML 調整。

@@ -2,6 +2,14 @@
 
 瀏覽器自動化的核心不是「點座標」，而是找到代表意義的元素。座標在視窗大小改變或版面改版後很容易失效；角色、文字與穩定的屬性則能表達你真正想操作的對象。
 
+## 本章目標
+
+完成後，你能用角色、文字和 CSS 定位器找到書卡，並以等待條件確認列表已完整載入。
+
+## 執行前準備
+
+需要第 2 章建立的虛擬環境與 Chromium；定位器練習使用公開的 Happy eBook 頁面。
+
 ## 5.1　從可讀的定位器開始
 
 如果頁面有「書籍列表」連結，優先使用角色和名稱：
@@ -31,14 +39,26 @@ title = first.locator("h3").inner_text()
 不要把網站目前顯示的 28 本寫死。若頁面有 `data-books-count`，先讀取摘要，再點擊「顯示更多書籍」直到顯示數等於總數：
 
 ```python
-summary = page.locator("[data-books-count]")
-cards = page.locator("article.book-card")
-while True:
-    shown, total = read_count(summary.inner_text())
-    if shown == total:
-        break
-    page.get_by_role("button", name=re.compile("顯示更多書籍")).click()
-    expect(cards.nth(shown)).to_be_attached()
+import re
+from playwright.sync_api import expect
+
+def read_count(text: str) -> tuple[int, int]:
+    match = re.search(r"顯示\s*(\d+)\s*/\s*(\d+)\s*本", text)
+    if not match:
+        raise ValueError(f"無法解析書籍數量：{text}")
+    return tuple(map(int, match.groups()))
+
+def expand_books(page):
+    """把目前頁面的書卡展開到摘要所說的總數。"""
+    summary = page.locator("[data-books-count]")
+    cards = page.locator("article.book-card")
+    while True:
+        shown, total = read_count(summary.inner_text())
+        if shown == total:
+            break
+        page.get_by_role("button", name=re.compile("顯示更多書籍")).click()
+        expect(cards.nth(shown)).to_be_attached()
+    return cards
 ```
 
 點擊後等待新卡片附加到 DOM，而不是固定 `sleep(2)`。如果總數讀不到或卡片數最後不一致，應停止並保存錯誤資訊，不能把部分結果當完整清單。

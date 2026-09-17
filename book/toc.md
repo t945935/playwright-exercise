@@ -43,5 +43,6 @@
 - [附錄 E｜讀者服務、問題回報與書籍勘誤](appendix-e-reader-service.md)
 
 補充：[術語表](glossary.md)
+編寫參考：[編輯規範與章節檢查表](editorial-style.md)
 
 前言、第 1–18 章與附錄 A–E 均已有完整初稿；目前進入技術校閱、讀者試跑、圖片整理與電子書轉檔階段。Trace、錄影和固定測試資料仍是出版前驗證工作。範例對應與完成條件見 [編寫大綱](outline.md) 與 [進度表](progress.md)。

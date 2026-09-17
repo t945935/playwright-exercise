@@ -2,6 +2,14 @@
 
 公開頁面可以用全新的瀏覽器工作階段；Blogger 和 Google Play 圖書後台則需要登入。把帳號密碼寫進程式是不安全的，也會讓範例無法交給其他讀者。本章只沿用讀者手動登入的 Chrome，不自動輸入密碼。
 
+## 本章目標
+
+完成後，你能說明 browser、context、page 的關係，並在不輸入密碼的前提下連接自己的 Chrome。
+
+## 執行前準備
+
+需要已登入的 Chrome、遠端偵錯設定與讀者帳號環境變數；沒有登入帳號時只做設定檢查，不執行後台操作。
+
 ## 8.1　理解三層物件
 
 Playwright 啟動的 `browser` 可以包含多個 `context`，每個 context 有自己的 Cookie、local storage 和分頁。`page` 是其中一個分頁。新建 context 不會繼承日常 Chrome 登入狀態，這正是「程式又顯示登入頁」的常見原因。

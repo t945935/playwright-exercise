@@ -59,5 +59,7 @@
 - [x] 修正 Playwright headless 預設、APIResponse 錯誤處理與章稿未定義片段。
 - [x] 補上不連線外部網站的 Python 核心邏輯測試。
 - [x] 為發布與出版範例加入 `--dry-run` 預覽入口。
+- [x] 依編輯規範補章節目標、前置條件、固定輸出與可複製片段。
+- [x] 新增本機活動、書單、行情與追蹤 fixture，以及第 18 章每日 runner。
 - [ ] 補本機 fixture 網站、Python CI 與各範例驗證日期矩陣。
 - [ ] 補截圖、術語表、來源授權與讀者版 LICENSE。
