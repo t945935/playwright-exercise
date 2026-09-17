@@ -30,7 +30,7 @@ with sync_playwright() as p:
 .venv/bin/python examples/03_data_queries/ai_news_today.py --limit 30
 ```
 
-`--date` 可以指定教學或重現日期，`--limit 0` 表示不限制每個來源的結果。輸出目錄包含 JSON 和 Markdown 報告，報告中保存查詢時間、來源和篩選日期。
+`--date` 可以指定教學或重現日期，`--limit 0` 表示不限制最終輸出的總筆數。輸出目錄包含 JSON 和 Markdown 報告，報告中保存查詢時間、來源和篩選日期。
 
 ## 11.3　去重與排序
 

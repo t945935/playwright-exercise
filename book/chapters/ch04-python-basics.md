@@ -38,7 +38,7 @@ from pathlib import Path
 output = Path("outputs/books.json")
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(
-    json.dumps(books, ensure_ascii=False, indent=2) + "\\n",
+    json.dumps(books, ensure_ascii=False, indent=2) + "\n",
     encoding="utf-8",
 )
 ```

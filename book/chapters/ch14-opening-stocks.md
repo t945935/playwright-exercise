@@ -15,8 +15,8 @@
 ## 14.2　執行與市場選擇
 
 ```bash
-.venv/bin/python examples/03_data_queries/stock_open_gainers.py --market tse --limit 20
-.venv/bin/python examples/03_data_queries/stock_open_gainers.py --market otc --limit 20
+.venv/bin/python examples/03_data_queries/stock_open_gainers.py --market tse --top 20
+.venv/bin/python examples/03_data_queries/stock_open_gainers.py --market otc --top 20
 ```
 
 預設市場是上市（TSE）；`otc` 查詢上櫃。開盤前執行通常沒有有效資料，程式會清楚提示，可使用 `--wait-open` 等待開盤後再查。輸出保存股票代號、名稱、開盤價、昨收價、漲幅、行情時間與查詢時間。
@@ -33,7 +33,7 @@
 
 ## 14.5　練習
 
-1. 將 `--limit` 改成 5，確認輸出只顯示前五名。
+1. 將 `--top` 改成 5，確認輸出只顯示前五名。
 2. 在休市時執行一次，記錄程式如何區分無行情和查詢失敗。
 3. 用固定 JSON 計算三檔股票的漲幅，手算結果後和程式排序比較。
 

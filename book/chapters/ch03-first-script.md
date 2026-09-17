@@ -36,7 +36,7 @@ Windows PowerShell 使用：
 ```powershell
 Get-Location
 Get-ChildItem examples/01_basics
-.\\.venv\\Scripts\\python.exe examples/01_basics/open_page.py
+.\.venv\Scripts\python.exe examples/01_basics/open_page.py
 ```
 
 輸出應包含 `Fast and reliable end-to-end testing for modern web apps | Playwright`。標題可能因網站改版而改變，因此範例只示範讀取，不把整句文字寫成必要條件。

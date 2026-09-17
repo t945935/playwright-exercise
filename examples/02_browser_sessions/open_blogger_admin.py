@@ -8,7 +8,7 @@ import sys
 EMAIL = os.environ.get("BLOGGER_EMAIL", "")
 BLOG_URL = os.environ.get("BLOGGER_PUBLIC_URL", "")
 BLOG_ID = os.environ.get("BLOGGER_BLOG_ID", "")
-ADMIN_URL = f"https://www.blogger.com/blog/posts/{BLOG_ID}"
+ADMIN_URL = f"https://www.blogger.com/blog/posts/{BLOG_ID}?hl=zh-TW"
 
 
 def run_on_windows():
@@ -27,8 +27,7 @@ def run_on_windows():
             value = os.environ[key].replace("'", "''")
             forwarded += f"$env:{key} = '{value}'; "
     command = (
-        forwarded +
-        "$env:PYTHONIOENCODING = 'utf-8'; "
+        forwarded + "$env:PYTHONIOENCODING = 'utf-8'; "
         f"& python.exe {quoted_script}; exit $LASTEXITCODE"
     )
     result = subprocess.run(["powershell.exe", "-NoProfile", "-Command", command])
