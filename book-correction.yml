@@ -1,0 +1,20 @@
+name: 書籍勘誤
+description: 回報章節文字、指令、圖片或連結錯誤
+title: "[勘誤] "
+body:
+  - type: input
+    id: location
+    attributes:
+      label: 章節、頁碼或文件連結
+    validations:
+      required: true
+  - type: input
+    id: edition
+    attributes:
+      label: 書籍版本或下載日期
+  - type: textarea
+    id: correction
+    attributes:
+      label: 原文與建議修正
+    validations:
+      required: true
