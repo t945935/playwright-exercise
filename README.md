@@ -1,8 +1,10 @@
-# Python × Playwright 做中學｜讀者服務
+# Python × Playwright 自動化實戰｜讀者服務
+
+**從安裝入門到新聞、交通、股價與新書追蹤的 16 個應用**
 
 本書的 Python 範例、操作指南與問題回報入口。**目前收錄 16 個應用，分成 6 類；書籍正文仍在編寫中。**
 
-[範例索引](docs/example-index.md) · [書籍大綱](book/outline.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
+[範例索引](docs/example-index.md) · [閱讀目錄](book/toc.md) · [前言](book/chapters/preface.md) · [第 1 章初稿](book/chapters/ch01-introduction.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
 
 ## 下載範例
 
