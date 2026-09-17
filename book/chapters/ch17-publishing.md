@@ -20,6 +20,13 @@ E15 先建立書籍資料，E16 從 JSON 讀取書名、副標題和說明，選
 
 填寫欄位後不代表已儲存、上傳封面、設定價格或發布。先以 `create_play_book.py --dry-run` 預覽建立步驟，以 `fill_play_book.py --dry-run` 預覽 metadata 與目標；每個後台按鈕的副作用都要在章稿和終端輸出說明。
 
+專案附有可離線預覽的 metadata：
+
+```bash
+.venv/bin/python examples/06_publishing/fill_play_book.py \
+  --metadata tests/python/fixtures/book-metadata.json --dry-run
+```
+
 ## 17.4　帳號和測試資料
 
 用專門的測試網誌或草稿帳號，避免在正式內容上試跑。若服務沒有測試環境，至少使用明確的測試標題、手動確認和可刪除的草稿。登入狀態留在本機 Chrome，不複製到書籍素材。

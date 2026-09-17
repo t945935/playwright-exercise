@@ -24,7 +24,12 @@ $env:BLOGGER_PUBLIC_URL = 'https://你的網誌.blogspot.com/'
 
 連線後先到後台，檢查頁面上可見的帳號識別，再導向公開頁面。這個檢查不能保證所有權限都正確，但能避免把資料寫到錯誤帳號。若找不到預期帳號，程式應停止並要求讀者手動切換，而不是繼續發布。
 
-同一原則適用 Play Books：先確認出版中心網址和書籍草稿，再執行填寫。`fill_play_book.py --validate-only` 只檢查 JSON，不連接瀏覽器；先用它驗證資料格式，可以避免開啟後台才發現欄位缺漏。
+同一原則適用 Play Books：先確認出版中心網址和書籍草稿，再執行填寫。`fill_play_book.py --validate-only` 只檢查 JSON，不連接瀏覽器；先用專案提供的固定資料驗證格式，可以避免開啟後台才發現欄位缺漏：
+
+```bash
+.venv/bin/python examples/06_publishing/fill_play_book.py \
+  --metadata tests/python/fixtures/book-metadata.json --validate-only
+```
 
 ## 8.4　Windows、WSL 與 CDP
 
@@ -40,7 +45,7 @@ Windows Chrome 和 WSL 的 localhost 網路環境可能不同。範例在偵測�
 
 1. 執行 E03 前只設定帳號資訊，不設定 CDP，記錄程式的明確錯誤。
 2. 手動登入自己的 Blogger 後執行 E03，確認程式只開啟分頁，不關閉原有 Chrome。
-3. 用 `fill_play_book.py --validate-only` 檢查一份 metadata JSON，確認沒有連接後台。
+3. 用 `fill_play_book.py --metadata tests/python/fixtures/book-metadata.json --validate-only` 檢查一份 metadata JSON，確認沒有連接後台。
 
 下一章回到公開頁面，實際取得 Happy eBook 的 AI Agent 書單；它不需要登入，因此會使用乾淨的 Chromium。
 
