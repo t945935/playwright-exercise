@@ -2,9 +2,9 @@
 
 **從安裝入門到新聞、交通、股價與新書追蹤的 16 個應用**
 
-本書的 Python 範例、操作指南與問題回報入口。**目前收錄 16 個應用，分成 6 類；書籍正文仍在編寫中。**
+本書的 Python 範例、操作指南與問題回報入口。**目前收錄 16 個應用，分成 6 類；前言與第 1–2 章已有初稿，其餘正文持續編寫。**
 
-[範例索引](docs/example-index.md) · [閱讀目錄](book/toc.md) · [前言](book/chapters/preface.md) · [第 1 章初稿](book/chapters/ch01-introduction.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
+[範例索引](docs/example-index.md) · [閱讀目錄](book/toc.md) · [前言](book/chapters/preface.md) · [第 1 章初稿](book/chapters/ch01-introduction.md) · [第 2 章初稿](book/chapters/ch02-installation.md) · [更新紀錄](CHANGELOG.md) · [問題回報](https://github.com/t945935/playwright-exercise/issues/new/choose)
 
 ## 下載範例
 

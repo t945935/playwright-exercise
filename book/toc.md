@@ -7,7 +7,7 @@
 ## 第一篇｜安裝與入門
 
 - [第 1 章　認識 Playwright：讓瀏覽器替你完成日常工作](chapters/ch01-introduction.md)
-- 第 2 章　建立開發環境：安裝 Python、Playwright 與瀏覽器
+- [第 2 章　建立開發環境：安裝 Python、Playwright 與瀏覽器](chapters/ch02-installation.md)
 - 第 3 章　第一支自動化程式：開啟網站、讀取標題與執行除錯
 - 第 4 章　必備 Python 基礎：函式、資料結構、檔案與例外處理
 
