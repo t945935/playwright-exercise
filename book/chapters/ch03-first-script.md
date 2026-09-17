@@ -44,7 +44,7 @@ Get-ChildItem examples/01_basics
 .\.venv\Scripts\python.exe examples/01_basics/open_page.py
 ```
 
-輸出應包含 `Fast and reliable end-to-end testing for modern web apps | Playwright`。標題可能因網站改版而改變，因此範例只示範讀取，不把整句文字寫成必要條件。
+輸出應包含 `Playwright` 字樣；完整標題可能因網站改版而改變，因此範例只示範讀取，不把整句文字寫成必要條件。
 
 ## 3.3　加入可讀的檢查
 
