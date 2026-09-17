@@ -13,7 +13,7 @@ page.get_by_label("出發時間").select_option("08:00")
 page.get_by_role("button", name="查詢", exact=True).click()
 ```
 
-如果元件是自製下拉選單，它可能不是 `select`。先點擊 combobox，再等待可見的 `option` 或清單項目，選完後檢查顯示值。E08 的 Google 書籍 ID 選單就是這種需要先辨識元件類型的案例。
+如果元件是自製下拉選單，它可能不是 `select`。先點擊 combobox，再等待可見的 `option` 或清單項目，選完後檢查顯示值。E15／E16 的 Google 書籍 ID 選單就是這種需要先辨識元件類型的案例。
 
 ## 6.2　等待一個狀態
 
