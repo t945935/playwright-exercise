@@ -40,6 +40,7 @@ python3 -m venv .venv
 .venv/bin/python -m playwright install chromium
 .venv/bin/python examples/01_basics/open_page.py
 .venv/bin/python -m unittest discover -s tests/python -p 'test_*.py'
+.venv/bin/python tools/daily_runner.py --dry-run
 ```
 
 不需要啟用虛擬環境；以上命令直接使用環境內的 Python。第一次成功會在終端機印出 Playwright 網站標題。
@@ -62,6 +63,8 @@ python3 -m venv .venv
 ```
 
 報表與截圖會在 `outputs/` 自動建立。下載包沒有作者的歷史基準，第一次執行會建立你自己的紀錄。
+
+`tools/daily_runner.py` 是第 18 章的整合工具，會依序呼叫三支唯讀範例；它不算入 16 個獨立應用，也不包含發布操作。
 
 | 分類 | 數量 | 主題 |
 |---|---:|---|

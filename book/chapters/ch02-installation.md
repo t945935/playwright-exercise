@@ -124,7 +124,11 @@ Windows PowerShell：
 .\.venv\Scripts\python.exe examples/01_basics/open_page.py
 ```
 
-預期會在終端機看到 Playwright 網站的標題，程式隨後結束。範例使用 Playwright 的預設無畫面模式；若要觀察瀏覽器視窗，請把 `launch()` 改成 `launch(headless=False)`。沒有圖形介面的 Linux 伺服器則維持預設設定即可。
+預期會在終端機看到 Playwright 網站的標題，程式隨後結束。範例預設使用無畫面模式；若要觀察瀏覽器視窗，可直接加上 `--headed`。沒有圖形介面的 Linux 伺服器則維持預設設定即可。
+
+```bash
+.venv/bin/python examples/01_basics/open_page.py --headed
+```
 
 接著只讀取命令列說明，不會連線或修改外部網站：
 

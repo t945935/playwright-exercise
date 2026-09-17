@@ -16,6 +16,16 @@ E11 接受活動 URL、報名按鈕選擇器和按鈕文字。狀態可分為 `o
 
 程式會保存狀態 JSON 和 `alerts.jsonl`。第一次只建立基準；狀態由關閉變開放時才通知，避免每五分鐘重複提醒。
 
+不想依賴外部活動頁時，可先用專案的本機 fixture。另開終端機在專案根目錄啟動 `python3 -m http.server 8000 --directory tests/fixtures`，再執行：
+
+```bash
+.venv/bin/python examples/04_tracking/event_registration_watch.py \
+  http://127.0.0.1:8000/event.html --selector '#register-button' \
+  --open-text '立即報名' --name '本機活動' --output-dir /tmp/event-demo
+```
+
+預期狀態是 `open`。將 `event.html` 的按鈕文字改成「已額滿」後重跑，可觀察 `closed`；完整步驟見 [本機 fixture 說明](../../tests/fixtures/README.md)。
+
 ## 16.2　選擇器和按鈕文字
 
 活動網站的 class、按鈕文字和報名期限都可能改變。選擇器應由讀者在有畫面模式或開發者工具確認；`--open-text` 要填頁面實際顯示的文字。若按鈕存在但文字是「下一步」，它和「立即報名」是不同的契約。

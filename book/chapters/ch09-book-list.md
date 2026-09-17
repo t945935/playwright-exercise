@@ -18,6 +18,16 @@
 .venv/bin/python examples/03_data_queries/happyebook_ai_agent.py --output /tmp/ai-agent.json
 ```
 
+預期輸出會列出書名與詳細頁網址，最後顯示類似：
+
+```text
+AI Agent 分類共 28 筆書目：
+...
+已儲存至：/tmp/ai-agent.json
+```
+
+筆數會隨網站變動；請以 JSON 是否包含 `title`、`url` 和 `reading_url` 為成功判斷。
+
 ## 9.2　展開直到完整
 
 E05 先讀取 `[data-books-count]` 摘要，從文字解析「目前顯示／總數」。每次點擊後等待原本未附加的下一張卡片，再重新讀取摘要。它不假設總數永遠是 28，因為網站可能增加或移除書籍。

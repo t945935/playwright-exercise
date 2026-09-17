@@ -32,6 +32,15 @@ Windows 使用工作排程器，動作指定 `.venv\Scripts\python.exe`，引數
 
 集中工具可以用 `subprocess.run(..., capture_output=True, text=True)` 呼叫既有程式，保存 stdout 和 stderr，再以 `returncode` 判斷結果。不要吞掉 stderr，也不要因一支程式失敗就刪除整天的輸出。
 
+專案提供一支最小 runner，依序執行 AI 新聞、新書雷達與台積電追蹤，並將每支程式的輸出集中到摘要檔：
+
+```bash
+.venv/bin/python tools/daily_runner.py --dry-run
+.venv/bin/python tools/daily_runner.py --output-dir /tmp/daily-run
+```
+
+先用 `--dry-run` 檢查命令清單；正式執行時即使其中一支失敗，也會繼續下一支，最後以退出碼 `1` 告知排程器有失敗項目。這支 runner 只包含唯讀查詢與本機輸出，不包含 Blogger 或 Play Books 發布。
+
 ## 18.4　重試和節流
 
 網路短暫失敗可以有限次重試，每次增加等待時間；選擇器改版不應無限重試。不同網站之間保留合理間隔，不要同時大量請求。行情和新聞來源有自己的限制，遵守服務條款並保存來源時間。
@@ -43,8 +52,8 @@ Windows 使用工作排程器，動作指定 `.venv\Scripts\python.exe`，引數
 ## 18.6　練習
 
 1. 先手動依序執行三支唯讀範例，為每支記錄開始時間、退出碼和輸出檔案。
-2. 寫一個小型 runner，只呼叫 E06、E12 和 E10，遇到失敗繼續下一支並最後列出失敗清單。
-3. 為 runner 加入 `--dry-run`，只列印將執行的命令，不真正連線。
+2. 修改 `tools/daily_runner.py`，加入一支你需要的唯讀範例，觀察摘要檔欄位。
+3. 為 runner 加入排程用的通知方式，但保留 `--dry-run` 並測試失敗時的退出碼。
 
 至此，你已從安裝、單頁操作、資料查詢、狀態追蹤走到排程設計。真正可靠的自動化不是永遠成功，而是成功、空結果和失敗都能被看見、被解釋、被再次檢查。
 

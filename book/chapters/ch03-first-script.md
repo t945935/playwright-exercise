@@ -7,10 +7,14 @@
 開啟 [E01](../../examples/01_basics/open_page.py)：
 
 ```python
+import argparse
 from playwright.sync_api import sync_playwright
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--headed", action="store_true")
+args = parser.parse_args()
 with sync_playwright() as p:
-    browser = p.chromium.launch()
+    browser = p.chromium.launch(headless=not args.headed)
     page = browser.new_page()
     page.goto("https://playwright.dev")
     print(page.title())
@@ -29,6 +33,7 @@ with sync_playwright() as p:
 pwd
 ls examples/01_basics
 .venv/bin/python examples/01_basics/open_page.py
+.venv/bin/python examples/01_basics/open_page.py --headed
 ```
 
 Windows PowerShell 使用：
@@ -61,7 +66,7 @@ with sync_playwright() as p:
 
 ## 3.4　有畫面與無畫面模式
 
-`launch()` 預設使用無畫面模式。伺服器或排程可以維持這個設定；除錯時若要看到視窗，請明確指定 `headless=False`：
+`launch()` 預設使用無畫面模式。伺服器或排程可以維持這個設定；除錯時可執行 E01 的 `--headed`：
 
 ```python
 browser = p.chromium.launch(headless=False)

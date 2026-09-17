@@ -23,6 +23,14 @@ new_books = [book for book in current if book["url"] not in old_urls]
 
 E12 會先確認完整書單、連結有效且不重複，再將本次清單寫入 `outputs/books/radar/baseline.json`。任何檢查失敗都保留舊基準，避免一次網路錯誤破壞下次比較。
 
+第一次執行的輸出類似：
+
+```text
+首次執行，已建立 226 筆書目的基準；下次會比較新增書籍。
+```
+
+第二次執行會改成「完整書單 N 筆；新增 M 筆」，其中 `N`、`M` 依當天網站內容變化。
+
 報告包含 `latest.json`、`latest.html` 和 `history/` 快照。第一次報告可以列出全部書單，卻要明確標示「首次建立基準」，不能標成新增。
 
 ## 10.3　處理刪除和重新出現

@@ -43,6 +43,15 @@ output.write_text(
 )
 ```
 
+執行後可用文字編輯器看到保留中文的 JSON：
+
+```json
+[
+  {"title": "A", "url": "https://example.com/a"},
+  {"title": "B", "url": "https://example.com/b"}
+]
+```
+
 `ensure_ascii=False` 保留中文，`indent=2` 方便人工檢查。讀取時使用 `json.loads(path.read_text(encoding="utf-8"))`，並檢查回傳值確實是清單或字典。新書雷達和電子書 metadata 範例都把 JSON 當作程式之間的清楚界面。
 
 ## 4.4　參數與預設值
